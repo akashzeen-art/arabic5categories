@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 
 const VideoPopup = ({ item, onClose }) => {
@@ -16,17 +17,25 @@ const VideoPopup = ({ item, onClose }) => {
   };
 
   return ReactDOM.createPortal(
-    <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md"
       onClick={onClose}
     >
-      <div
-        className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden shadow-2xl bg-black"
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0, y: 40 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.85, opacity: 0, y: 40 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+        className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(201,168,76,0.2)] border border-[#c9a84c]/20"
+        style={{ background: '#060f1e' }}
         onClick={e => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-brand-purple transition-colors"
+          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-[#c9a84c] hover:text-[#0a1628] transition-all duration-200 hover:scale-110"
         >
           <X className="w-4 h-4" />
         </button>
@@ -41,11 +50,11 @@ const VideoPopup = ({ item, onClose }) => {
           onCanPlay={handleCanPlay}
           className="w-full aspect-video"
         />
-        <div className="p-3 bg-slate-900">
-          <h3 className="text-white font-bold text-sm">{item.title}</h3>
+        <div className="p-3 bg-[#0d1f3c] border-t border-[#c9a84c]/20">
+          <h3 className="text-[#c9a84c] font-bold text-sm">{item.title}</h3>
         </div>
-      </div>
-    </div>,
+      </motion.div>
+    </motion.div>,
     document.body
   );
 };

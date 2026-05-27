@@ -14,7 +14,7 @@ function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <div className="bg-slate-900 min-h-screen text-slate-100 font-sans">
+    <div className="bg-[#0a1628] min-h-screen text-slate-100 font-sans">
       {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
       
       <div 

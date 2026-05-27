@@ -30,9 +30,10 @@ const VideoCard = ({ item }) => {
   return (
     <>
       <motion.div
-        whileHover={{ y: -4, scale: 1.02 }}
-        transition={{ duration: 0.2 }}
-        className="group relative rounded-xl overflow-hidden bg-slate-800 border border-slate-700 shadow-xl h-full flex flex-col cursor-pointer"
+        whileHover={{ y: -8, scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        transition={{ duration: 0.25, type: 'spring', stiffness: 300, damping: 20 }}
+        className="group relative rounded-xl overflow-hidden bg-[#0d1f3c] border border-[#c9a84c]/15 shadow-xl h-full flex flex-col cursor-pointer hover:border-[#c9a84c]/50 hover:shadow-[0_8px_30px_rgba(201,168,76,0.15)] transition-all duration-300"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={handleClick}
@@ -44,10 +45,15 @@ const VideoCard = ({ item }) => {
               alt={item.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 flex items-center justify-center ${hovered ? 'opacity-100' : 'opacity-0'}`}>
-              <div className={`w-12 h-12 rounded-full bg-brand-purple flex items-center justify-center pl-0.5 text-white shadow-lg shadow-brand-purple/50 transition-transform duration-300 ${hovered ? 'scale-100' : 'scale-75'}`}>
-                <Play className="w-5 h-5" />
-              </div>
+            <div className={`absolute inset-0 bg-black/50 transition-opacity duration-300 flex items-center justify-center ${hovered ? 'opacity-100' : 'opacity-0'}`}>
+              <motion.div
+                animate={{ scale: hovered ? 1 : 0.6, opacity: hovered ? 1 : 0 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="w-14 h-14 rounded-full flex items-center justify-center pl-1 text-[#0a1628] shadow-lg shadow-[#c9a84c]/50"
+                style={{ background: 'linear-gradient(135deg, #c9a84c, #f0a500)' }}
+              >
+                <Play className="w-6 h-6" />
+              </motion.div>
             </div>
             <div className="absolute bottom-2 right-2 bg-black/70 px-2 py-1 rounded text-xs font-bold text-white backdrop-blur-sm">
               {item.duration}
@@ -59,8 +65,8 @@ const VideoCard = ({ item }) => {
             )}
           </div>
           <div className="p-3 flex-grow flex flex-col">
-            <h3 className="text-white font-bold mb-1 line-clamp-2 leading-tight text-sm">{item.title}</h3>
-            <p className="text-slate-400 text-xs line-clamp-2 mt-auto">{item.description}</p>
+            <h3 className="text-slate-100 font-bold mb-1 line-clamp-2 leading-tight text-sm group-hover:text-[#c9a84c] transition-colors duration-300">{item.title}</h3>
+            <p className="text-slate-500 text-xs line-clamp-2 mt-auto">{item.description}</p>
           </div>
         </div>
       </motion.div>
@@ -68,7 +74,7 @@ const VideoCard = ({ item }) => {
       {popup && ReactDOM.createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={() => setPopup(false)}>
           <div className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden shadow-2xl bg-black" onClick={e => e.stopPropagation()}>
-            <button onClick={() => setPopup(false)} className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-brand-purple transition-colors">
+            <button onClick={() => setPopup(false)} className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-[#c9a84c] hover:text-[#0a1628] transition-all duration-200">
               <X className="w-4 h-4" />
             </button>
             {isGame ? (
@@ -86,7 +92,7 @@ const VideoCard = ({ item }) => {
                 className="w-full aspect-video"
               />
             )}
-            <div className="p-3 bg-slate-900">
+            <div className="p-3 bg-[#0d1f3c] border-t border-[#c9a84c]/20">
               <h3 className="text-white font-bold text-sm">{item.title}</h3>
             </div>
           </div>

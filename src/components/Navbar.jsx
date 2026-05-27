@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-slate-900/90 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
+        isScrolled ? 'bg-[#0a1628]/95 backdrop-blur-md shadow-lg shadow-black/40 py-3 border-b border-[#c9a84c]/20' : 'bg-transparent py-5'
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
@@ -30,14 +30,14 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          <Link to="/" className="text-white hover:text-brand-pink font-medium transition-colors">Home</Link>
+          <Link to="/" className="text-white hover:text-[#c9a84c] font-medium transition-colors">الرئيسية</Link>
           <div 
             className="relative"
             onMouseEnter={() => setDropdownOpen(true)}
             onMouseLeave={() => setDropdownOpen(false)}
           >
-            <button className="flex items-center gap-1 text-white hover:text-brand-pink font-medium transition-colors">
-              Categories <ChevronDown className="w-4 h-4" />
+            <button className="flex items-center gap-1 text-white hover:text-[#c9a84c] font-medium transition-colors">
+              التصنيفات <ChevronDown className="w-4 h-4" />
             </button>
             
             <AnimatePresence>
@@ -47,16 +47,21 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full left-0 mt-2 w-48 bg-slate-800 rounded-xl shadow-xl overflow-hidden py-2"
+                  className="absolute top-full left-0 mt-2 w-48 bg-[#0d1f3c] border border-[#c9a84c]/20 rounded-xl shadow-xl overflow-hidden py-2"
                 >
                   {categories.map((cat) => (
-                    <Link
+                    <motion.div
                       key={cat.id}
-                      to={`/category/${cat.slug}`}
-                      className="block px-4 py-2 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors"
+                      whileHover={{ x: 4, backgroundColor: 'rgba(201,168,76,0.08)' }}
+                      transition={{ duration: 0.15 }}
                     >
-                      {cat.name}
-                    </Link>
+                      <Link
+                        to={`/category/${cat.slug}`}
+                        className="block px-4 py-2 text-slate-300 hover:text-[#c9a84c] transition-colors"
+                      >
+                        {cat.name}
+                      </Link>
+                    </motion.div>
                   ))}
                 </motion.div>
               )}
@@ -80,12 +85,12 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden fixed top-0 left-0 w-full bg-slate-900 pt-24 px-8 overflow-y-auto"
+            className="md:hidden fixed top-0 left-0 w-full bg-[#0a1628] pt-24 px-8 overflow-y-auto"
           >
             <div className="flex flex-col gap-6 text-xl font-medium">
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-white">Home</Link>
-              <div className="text-brand-purple font-bold mt-4">Categories</div>
-              <div className="flex flex-col gap-4 pl-4 border-l border-slate-800">
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-white">الرئيسية</Link>
+              <div className="text-[#c9a84c] font-bold mt-4">التصنيفات</div>
+              <div className="flex flex-col gap-4 pl-4 border-l border-[#c9a84c]/20">
                 {categories.map((cat) => (
                   <Link
                     key={cat.id}
