@@ -11,9 +11,12 @@ const VideoPopup = ({ item, onClose }) => {
   const handleCanPlay = () => {
     const video = videoRef.current;
     if (!video) return;
-    video.muted = false;
-    video.volume = 1;
-    video.play().catch(() => {});
+    video.play()
+      .then(() => {
+        video.muted = false;
+        video.volume = 1;
+      })
+      .catch(() => {});
   };
 
   return ReactDOM.createPortal(

@@ -22,9 +22,12 @@ const VideoCard = ({ item }) => {
   const handleCanPlay = () => {
     const video = videoRef.current;
     if (!video) return;
-    video.muted = false;
-    video.volume = 1;
-    video.play().catch(() => {});
+    video.play()
+      .then(() => {
+        video.muted = false;
+        video.volume = 1;
+      })
+      .catch(() => {});
   };
 
   return (
@@ -87,9 +90,11 @@ const VideoCard = ({ item }) => {
                 controls
                 autoPlay
                 muted
+                playsInline
                 controlsList="nodownload"
                 onCanPlay={handleCanPlay}
-                className="w-full aspect-video"
+                onError={(e) => console.error('Video error:', e.target.error, item.videoUrl)}
+                className="w-full aspect-video bg-black"
               />
             )}
             <div className="p-3 bg-[#0d1f3c] border-t border-[#c9a84c]/20">
